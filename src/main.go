@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/berrybab6/MovieGo/pkg/books"
+	"github.com/berrybab6/MovieGo/pkg/users"
+
 	"github.com/berrybab6/MovieGo/pkg/common/config"
 	"github.com/berrybab6/MovieGo/pkg/common/db"
 	"github.com/gofiber/fiber/v2"
@@ -21,6 +23,7 @@ func main() {
 	// 	return ctx.Status(fiber.StatusOK).SendString(c.Port)
 	// })
 	books.RegisterRoutes(app, db)
+	users.RegisterUserRoutes(app, db)
 	app.Listen(c.Port)
 
 }
