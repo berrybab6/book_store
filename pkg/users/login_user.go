@@ -1,57 +1,47 @@
 package users
 
 import (
-	"strconv"
-	"time"
-
 	"github.com/berrybab6/MovieGo/pkg/common/models"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type LoginRequestBody struct {
 	Email    string `json:"email"`
-	Password []byte `json:"-"`
+	Password string `json:"password"`
 }
 
 func (h handler) LoginUser(c *fiber.Ctx) error {
 	body := LoginRequestBody{}
-
+	// var data map[string]string
 	err := c.BodyParser(&body)
 	if err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 	var user models.User
 
-	const SecretKey = "ThisIsMySecretKey"
+	// const SecretKey = "ThisIsMySecretKey"
 
 	// if result := h.DB.Where("email = ?", body.Email).First(&user); result.Error != nil {
 	// 	return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
 	// }
-	h.DB.Where("email = ?", body.Email).First(&user)
-	if user.Id == 0 {
+	record := h.DB.Where("email = ?", body.Email).First(&user)
+	if record.Error != nil {
 		c.Status(fiber.StatusNotFound)
 		return c.JSON(fiber.Map{
-			"message": "Invalid Credentials",
+			"message": "Invalid Credentials Email",
 		})
 	}
 
-	if err2 := bcrypt.CompareHashAndPassword(user.Password, body.Password); err2 != nil {
+	if err := user.CheckPassword(body.Password); err != nil {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"message": "Invalid Credentials",
+			"message": "Invalid Credentials Password",
 		})
 	}
 
-	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Issuer:    strconv.Itoa(int(user.Id)),
-		ExpiresAt: time.Now().Add(time.Hour * 1).Unix(),
-	})
+	tokenString, err := GenerateJWT(user.Email, user.Username)
 
-	token, err3 := claims.SignedString([]byte(SecretKey))
-
-	if err3 != nil {
+	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
 		return c.JSON(fiber.Map{
 			"message": "could not login",
@@ -60,6 +50,6 @@ func (h handler) LoginUser(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "Login Succesfully",
-		"token":   &token,
+		"token":   tokenString,
 	})
 }
