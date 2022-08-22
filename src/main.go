@@ -4,10 +4,9 @@ import (
 	"log"
 
 	"github.com/berrybab6/MovieGo/pkg/books"
-	"github.com/berrybab6/MovieGo/pkg/users"
-
 	"github.com/berrybab6/MovieGo/pkg/common/config"
 	"github.com/berrybab6/MovieGo/pkg/common/db"
+	"github.com/berrybab6/MovieGo/pkg/users"
 	"github.com/gofiber/fiber/v2"
 )
 
