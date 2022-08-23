@@ -7,7 +7,7 @@ import (
 
 type AddBookRequestBody struct {
 	Title       string `gorm:"title"`
-	Author      string `gorm:"author"`
+	AuthorID    uint   `gorm:"authorid"`
 	Description string `gorm:"description"`
 }
 
@@ -20,7 +20,7 @@ func (h handler) AddBook(c *fiber.Ctx) error {
 	var book models.Book
 
 	book.Title = body.Title
-	book.Author = body.Author
+	book.AuthorID = body.AuthorID
 	book.Description = body.Description
 
 	if result := h.DB.Create(&book); result.Error != nil {
