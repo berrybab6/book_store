@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/berrybab6/MovieGo/pkg/authors"
 	"github.com/berrybab6/MovieGo/pkg/books"
 	"github.com/berrybab6/MovieGo/pkg/common/config"
 	"github.com/berrybab6/MovieGo/pkg/common/db"
@@ -23,6 +24,7 @@ func main() {
 	// })
 	books.RegisterRoutes(app, db)
 	users.RegisterUserRoutes(app, db)
+	authors.RegisterAuthorRoutes(app, db)
 	app.Listen(c.Port)
 
 }
