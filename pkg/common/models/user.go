@@ -3,11 +3,12 @@ package models
 import "golang.org/x/crypto/bcrypt"
 
 type User struct {
-	Id       uint   `json:"id" gorm:"primaryKey"`
-	Name     string `json:"name"`
-	Username string `json:"username" gorm:"unique"`
-	Email    string `json:"email" gorm:"unique"`
-	Password string `json:"password"`
+	Id         uint   `json:"id" gorm:"primaryKey"`
+	Name       string `json:"name"`
+	Username   string `json:"username" gorm:"unique"`
+	Email      string `json:"email" gorm:"unique"`
+	Password   string `json:"password"`
+	ResetToken string `json:"resettoken" gorm:"default:''"`
 }
 
 func (user *User) HashPassword(thePassword string) error {
@@ -25,4 +26,9 @@ func (user *User) CheckPassword(thePassword string) error {
 		return err
 	}
 	return nil
+}
+
+func (user *User) GenerateResetToken() string {
+
+	return ""
 }
