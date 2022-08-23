@@ -1,6 +1,8 @@
 package models
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
 	Id         uint   `json:"id" gorm:"primaryKey"`
@@ -26,9 +28,4 @@ func (user *User) CheckPassword(thePassword string) error {
 		return err
 	}
 	return nil
-}
-
-func (user *User) GenerateResetToken() string {
-
-	return ""
 }
