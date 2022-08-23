@@ -22,6 +22,7 @@ func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 	secured := app.Group("/secured").Use(ValidateJWT)
 	{
 		secured.Get("/", h.GetUsers)
+		secured.Put("/:id", h.ChangePassword)
 		// secured.GET("/ping", controllers.Ping)
 	}
 }
