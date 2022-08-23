@@ -12,6 +12,8 @@ import (
 )
 
 func main() {
+	// tmpl := template.Must(template.ParseGlob(".templates/template.html"))
+
 	c, err := config.LoadConfig()
 
 	if err != nil {
