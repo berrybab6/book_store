@@ -7,7 +7,7 @@ import (
 
 type UpdateBookRequestBody struct {
 	Title       string `gorm:"title"`
-	Author      string `gorm:"author"`
+	AuthorID    uint   `gorm:"author_id"`
 	Description string `gorm:"description"`
 }
 
@@ -28,7 +28,7 @@ func (h handler) UpdateBook(c *fiber.Ctx) error {
 	}
 	book.Title = body.Title
 	book.Description = body.Description
-	book.Author = body.Author
+	book.AuthorID = body.AuthorID
 
 	h.DB.Save(&book)
 	return c.Status(fiber.StatusOK).JSON(&book)
