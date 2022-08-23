@@ -23,6 +23,8 @@ func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 	{
 		secured.Get("/", h.GetUsers)
 		secured.Put("/:id", h.ChangePassword)
+		secured.Put("/forgot", h.ForgotPassword)
+
 		// secured.GET("/ping", controllers.Ping)
 	}
 }
