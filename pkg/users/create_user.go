@@ -2,6 +2,8 @@ package users
 
 import (
 	"github.com/berrybab6/MovieGo/pkg/common/models"
+	// "github.com/berrybab6/MovieGo/pkg/emails"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -31,6 +33,14 @@ func (h handler) CreateUser(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 
 	}
+
+	// d := info{
+	// 	Name:    "Mishawa",
+	// 	Message: "Welcome to Movie Go APP",
+	// }
+
+	// d.sendMail(body.Email)
 	h.DB.Create(&user)
+
 	return c.Status(fiber.StatusCreated).JSON(&user)
 }
