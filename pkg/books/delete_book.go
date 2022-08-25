@@ -5,6 +5,19 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// DeleteBook godoc
+// @Summary      Delete a book
+// @Description  Delete by book ID
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @Param        id   path      uint  true  "Book ID"  Format(int64)
+// @Success      204  {object}  model.Book
+// @Failure      400  {object}  httputil.HTTPError
+// @Failure      404  {object}  httputil.HTTPError
+// @Failure      500  {object}  httputil.H
+// @Router       /books/deletebook/{id} [delete]
+
 func (h handler) DeleteBook(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var book models.Book
