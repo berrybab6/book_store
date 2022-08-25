@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// CreateUserRequestBody MovieGo
 type CreateUserRequestBody struct {
 	Name     string `json:"name"`
 	Username string `json:"username"`
@@ -14,6 +15,18 @@ type CreateUserRequestBody struct {
 	Password string `json:"password"`
 }
 
+// CreateUser godoc
+// @Summary Create An User
+// @Description  add by json user
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      CreateUserRequestBody  true  "Add user"
+// @Success      200      {object}  models.User
+// @Failure      400      {object}  httputil.HTTPError
+// @Failure      404      {object}  httputil.HTTPError
+// @Failure      500      {object}  httputil.HTTPError
+// @Router       /users [post]
 func (h handler) CreateUser(c *fiber.Ctx) error {
 	body := CreateUserRequestBody{}
 

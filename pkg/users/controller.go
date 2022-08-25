@@ -5,10 +5,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// handler MovieGo
 type handler struct {
 	DB *gorm.DB
 }
 
+// RegisterUserRoutes godoc
 func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 	h := &handler{
 		DB: db,
@@ -16,14 +18,13 @@ func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 
 	routes := app.Group("users")
 	routes.Post("/", h.CreateUser)
-	// routes.Get("/", h.GetUsers)
 	routes.Post("/login", h.LoginUser)
 
 	secured := app.Group("/secured").Use(ValidateJWT)
 	{
 		secured.Get("/", h.GetUsers)
-		secured.Put("/:id", h.ChangePassword)
-		secured.Put("/forgot", h.ForgotPassword)
+		// secured.Put("/:id", h.ChangePassword)
+		// secured.Put("/forgot", h.ForgotPassword)
 
 		// secured.GET("/ping", controllers.Ping)
 	}

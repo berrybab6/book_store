@@ -4,6 +4,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// User MovieGo
 type User struct {
 	Id         uint   `json:"id" gorm:"primaryKey"`
 	Name       string `json:"name"`
@@ -13,6 +14,7 @@ type User struct {
 	ResetToken string `json:"resettoken" gorm:"default:''"`
 }
 
+// HashPassword MovieGo
 func (user *User) HashPassword(thePassword string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(thePassword), 14)
 	if err != nil {
@@ -22,6 +24,7 @@ func (user *User) HashPassword(thePassword string) error {
 	return nil
 }
 
+// CheckPassword MovieGo
 func (user *User) CheckPassword(thePassword string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(thePassword))
 	if err != nil {

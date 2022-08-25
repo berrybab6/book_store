@@ -5,6 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// ChangePassReqBody
 type ChangePassReqBody struct {
 	OldPassword string `gorm:"oldpassword"`
 	Password    string `gorm:"password"`

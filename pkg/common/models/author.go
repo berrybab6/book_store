@@ -1,5 +1,6 @@
 package models
 
+// Author MovieGo
 type Author struct {
 	ID        uint   `json:"id" gorm:"primaryKey"`
 	FirstName string `json:"firstname"`

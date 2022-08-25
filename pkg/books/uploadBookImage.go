@@ -7,7 +7,19 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Upload an attachmentit's
+// Upload godoc
+// @Summary      Upload Book attachment
+// @Description  Upload file
+// @Tags         books
+// @Accept       multipart/form-data
+// @Produce      json
+// @Param        id    path      uint   true  "Book ID"
+// @Param        file  formData  file  true  "book attachement"
+// @Success      200   {object}  controller.Message
+// @Failure      400   {object}  httputil.HTTPError
+// @Failure      404   {object}  httputil.HTTPError
+// @Failure      500   {object}  httputil.HTTPError
+// @Router       /books/upload/{id} [put]
 func (h handler) Upload(ctx *fiber.Ctx) error {
 	id := ctx.Params("id")
 

@@ -5,11 +5,30 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// LoginRequestBody MovieGo
 type LoginRequestBody struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
+// LoginRespBody MovieGo
+type LoginRespBody struct {
+	Message string `json:"message"`
+	Token   string `json:"token"`
+}
+
+// LoginUser godoc
+// @Summary Login A User
+// @Description  login by json user
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      LoginRequestBody  true  "Login user"
+// @Success      200      {object}  LoginRespBody
+// @Failure      400      {object}  httputil.HTTPError
+// @Failure      404      {object}  httputil.HTTPError
+// @Failure      500      {object}  httputil.HTTPError
+// @Router       /users/login [post]
 func (h handler) LoginUser(c *fiber.Ctx) error {
 	body := LoginRequestBody{}
 	// var data map[string]string

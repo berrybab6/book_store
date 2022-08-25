@@ -5,12 +5,26 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// UpdateBookRequestBody MovieGo
 type UpdateBookRequestBody struct {
 	Title       string `gorm:"title"`
 	AuthorID    uint   `gorm:"author_id"`
 	Description string `gorm:"description"`
 }
 
+// UpdateBook godoc
+// @Summary      Update a book
+// @Description  Update by json book
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @Param        id       path      uint                  true  "Book ID"
+// @Param        book  body      UpdateBookRequestBody  true  "Update book"
+// @Success      200      {object}  models.Book
+// @Failure      400      {object}  httputil.HTTPError
+// @Failure      404      {object}  httputil.HTTPError
+// @Failure      500      {object}  httputil.HTTPError
+// @Router       /books/updatebooksbyid/{id} [put]
 func (h handler) UpdateBook(c *fiber.Ctx) error {
 	id := c.Params("id")
 	body := UpdateBookRequestBody{}
