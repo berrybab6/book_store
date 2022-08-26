@@ -19,12 +19,12 @@ func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 	routes := app.Group("users")
 	routes.Post("/", h.CreateUser)
 	routes.Post("/login", h.LoginUser)
+	routes.Put("/forgot", h.ForgotPassword)
 
 	secured := app.Group("/secured").Use(ValidateJWT)
 	{
 		secured.Get("/", h.GetUsers)
 		// secured.Put("/:id", h.ChangePassword)
-		// secured.Put("/forgot", h.ForgotPassword)
 
 		// secured.GET("/ping", controllers.Ping)
 	}
