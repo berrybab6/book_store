@@ -29,7 +29,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:8000
+// @host localhost:8080
 // @BasePath /
 // @schemes http
 func main() {
@@ -41,7 +41,18 @@ func main() {
 		log.Fatalln("Failed at Config", err)
 	}
 	app := fiber.New()
+
+	// url := fmt.Sprintf("%v://%v:%v@%v:%v/%v?sslmode=disable",
+	// 	c.DBDriver,
+
+	// 	c.DBUser,
+	// 	c.DBPassword,
+	// 	c.DBHost,
+	// 	c.DBPort,
+	// 	c.DBName)
+
 	db := db.Init(c.DBUrl)
+
 	// app.Get("/", func(ctx *fiber.Ctx) error {
 	// 	return ctx.Status(fiber.StatusOK).SendString(c.Port)
 	// })
