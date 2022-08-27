@@ -4,14 +4,23 @@ import (
 	"log"
 
 	"github.com/berrybab6/MovieGo/pkg/common/models"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 // Init MovieGo
 func Init(url string) *gorm.DB {
+	// DB_URL="$}c.DB_DRIVER://DB_USER:DB_PASSWORD@DB_HOST:DB_PORT/DB_NAME"
+
+	// url = fmt.Sprintf("host=%s port=%d user=%s "+
+	// 	"password=%s dbname=%s sslmode=disable",
+	// 	c.DBHost, c.DBPort, c.DBUser, c.DBPassword, c.DBName)
+
+	// lela := c.DBDriver + "://" + c.DBUser + ":" + c.DBPassword + "@" + c.DBHost + ":" + c.DBPort + "/" + c.DBName
 
 	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
+
 	if err != nil {
 		log.Fatalln(err)
 	}
