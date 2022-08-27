@@ -3,14 +3,15 @@ package users
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
+	"github.com/berrybab6/MovieGo/pkg/common/config"
 	"github.com/dgrijalva/jwt-go"
+
 	"github.com/gofiber/fiber/v2"
 )
-
-var jwtSecret = []byte("movieGoSuperSecretKey")
 
 type JWTClaim struct {
 	Username string `json:"username"`
@@ -24,6 +25,11 @@ type Authorization struct {
 
 func GenerateJWT(email string, username string) (tokenString string, err error) {
 	expirationTime := time.Now().Add(time.Hour * 1)
+	c, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalln("Failed at Config", err)
+	}
+	var jwtSecret = []byte(c.ApiSecret)
 
 	claims := &JWTClaim{
 		Username: username,
@@ -39,6 +45,11 @@ func GenerateJWT(email string, username string) (tokenString string, err error) 
 
 func ValidateJWT(c *fiber.Ctx) error {
 	bearer := new(Authorization)
+	cc, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalln("Failed at Config", err)
+	}
+	var jwtSecret = []byte(cc.ApiSecret)
 
 	if err := c.ReqHeaderParser(bearer); err != nil {
 		return fiber.ErrBadRequest
