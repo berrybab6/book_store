@@ -74,6 +74,11 @@ definitions:
       username:
         type: string
     type: object
+  users.ForgotPassReqBody:
+    properties:
+      email:
+        type: string
+    type: object
   users.LoginRequestBody:
     properties:
       email:
@@ -88,7 +93,20 @@ definitions:
       token:
         type: string
     type: object
-host: localhost:8000
+  users.ResetPasswordInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      passwordConfirm:
+        type: string
+    required:
+    - email
+    - password
+    - passwordConfirm
+    type: object
+host: localhost:8080
 info:
   contact:
     email: support@swagger.io
@@ -362,6 +380,40 @@ paths:
       summary: Create An User
       tags:
       - users
+  /users/forgot:
+    put:
+      consumes:
+      - application/json
+      description: change user password
+      parameters:
+      - description: Forgot Password
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/users.ForgotPassReqBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Forgot Password getway
+      tags:
+      - users
   /users/login:
     post:
       consumes:
@@ -394,6 +446,45 @@ paths:
           schema:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Login A User
+      tags:
+      - users
+  /users/reset/{resettoken}:
+    put:
+      consumes:
+      - application/json
+      description: reset user password
+      parameters:
+      - description: User ResetToken
+        in: path
+        name: resettoken
+        required: true
+        type: string
+      - description: Reset Password
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/users.ResetPasswordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Reset Password getway
       tags:
       - users
 schemes:
