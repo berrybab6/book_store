@@ -20,6 +20,7 @@ func RegisterUserRoutes(app *fiber.App, db *gorm.DB) {
 	routes.Post("/", h.CreateUser)
 	routes.Post("/login", h.LoginUser)
 	routes.Put("/forgot", h.ForgotPassword)
+	routes.Put("/reset/:resettoken", h.ResetPassword)
 
 	secured := app.Group("/secured").Use(ValidateJWT)
 	{
