@@ -50,6 +50,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/jozsefsallai/fiber-bearer-token v1.0.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/k3a/html2text v1.0.8 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
@@ -73,7 +74,7 @@ require (
 	github.com/subosito/gotenv v1.3.0 // indirect
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a // indirect
 	github.com/swaggo/gin-swagger v1.5.2 // indirect
-	github.com/swaggo/swag v1.8.4 // indirect
+	github.com/swaggo/swag v1.8.5 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/urfave/cli/v2 v2.11.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
